@@ -27,7 +27,7 @@ response = ec2.run_instances(
     TagSpecifications=[
         {
             "ResourceType": "instance",
-            "Tags": [{"Key": "Name", "Value": "AL3-NoKeyDemo"}]
+            "Tags": [{"Key": "Name", "Value": "EC2-Launched-Using-SDK"}]
         }
     ]
 )
