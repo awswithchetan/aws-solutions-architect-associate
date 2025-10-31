@@ -1,7 +1,6 @@
 #!/bin/bash
-# Use this for your user data (script from top to bottom)
 # Install httpd (Amazon Linux 2023 version)
-# Update system and install httpd
+
 dnf update -y
 dnf install -y httpd
 
