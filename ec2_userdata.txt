@@ -1,0 +1,13 @@
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+# Install httpd (Amazon Linux 2023 version)
+# Update system and install httpd
+dnf update -y
+dnf install -y httpd
+
+# Start and enable the httpd service
+systemctl start httpd
+systemctl enable httpd
+
+# Create a simple index.html file
+echo "<h1>Hello I am loving this AWS course :)</h1>" > /var/www/html/index.html
