@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation Template to Launch EC2 Instance in Mumbai (ap-south-1)"
+
+Resources:
+  EC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      InstanceType: "t2.micro"  # Change as per your requirement
+      ImageId: !FindInMap 
+        - RegionMap
+        - !Ref "AWS::Region"
+        - AMI
+      KeyName: "xxxxxxxxxx"  # Replace with your key pair name
+      SecurityGroupIds:
+        - !Ref "InstanceSecurityGroup"
+      Tags:
+        - Key: "Name"
+          Value: "EC2-For-CloudFormation-Demo"  # Add a custom name tag for the instance
+
+  InstanceSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties: 
+      GroupDescription: "Enable SSH access on port 22"
+      GroupName: "SG-For-CloudFormation-Demo"  # Custom Security Group Name
+      SecurityGroupIngress: 
+        - IpProtocol: "tcp"
+          FromPort: "22"
+          ToPort: "22"
+          CidrIp: "0.0.0.0/0"  # Open to the world, restrict as needed
+
+Mappings:
+  RegionMap:
+    ap-south-1:
+      AMI: "ami-xxxxxxxxxxxxxx"  # Replace with the latest AMI ID
+
+Outputs:
+  InstanceId:
+    Description: "Instance ID of the newly created EC2 instance"
+    Value: !Ref EC2Instance
+  PublicIP:
+    Description: "Public IP address of the EC2 instance"
+    Value: !GetAtt EC2Instance.PublicIp  # Fetches the public IP address of the instance
